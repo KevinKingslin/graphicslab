@@ -3,25 +3,30 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class test extends Applet implements ActionListener {
+	private Integer unit = 40;
 	private Button ZoomIn = new Button("Zoom In");
 	private Button ZoomOut = new Button("Zoom Out");
-	private Integer unit = 40;
 
+	private Color BackgroundColor = new Color(255, 255, 255);
+	private Color GridColor = new Color(100, 100, 100);
+
+	
 	public void init() {
 		this.setSize(600, 600);
-
+		this.setBackground(BackgroundColor);
+		
 		add(ZoomIn);
 		add(ZoomOut);
-
+		
 		ZoomIn.addActionListener(this);
 		ZoomOut.addActionListener(this);
 	}
-
+	
 	public void paint(Graphics g) {
-
+		
 		int height = getHeight();
 		int width = getWidth();
-
+		
 		// Set origin
 		int originX = (getX() + width) / 2;
 		int originY = (getY() + height) / 2;
@@ -36,7 +41,7 @@ public class test extends Applet implements ActionListener {
 		// Set y-axis
 		g.drawLine(width / 2, 0, width / 2, height);
 
-		g.setColor(Color.black);
+		g.setColor(GridColor);
 		g.drawString("0", originX, originY);
 
 		int coordinate = 1;
@@ -58,16 +63,27 @@ public class test extends Applet implements ActionListener {
 			g.drawString(String.valueOf(coordinate), originX, originY - (unit * count));
 			g.drawString("-" + String.valueOf(coordinate), originX - (unit * count), originY);
 		}
+
+		// Draw square
+		g.drawRect(originX + (2 * unit) - (unit / 8), originY - (1 * unit) - (unit / 8), unit / 4, unit / 4);
+
+		plotpoint(5, 1, GridColor);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == ZoomIn) {
-			Graphics g = getGraphics();
-			g.clearRect(0, 0, getWidth(), getHeight());
+		Graphics g = getGraphics();
+		g.clearRect(0, 0, getWidth(), getHeight());
+		if (e.getSource() == ZoomIn)
 			unit += 20;
-			paint(g);
-		} else {
+		else
+			unit -= 20;
+		paint(g);
+	}
 
-		}
+	public void plotpoint(int x, int y, Color C){
+		int originX = (getX() + getWidth()) / 2;
+		int originY = (getY() + getHeight()) / 2;
+		Graphics g = getGraphics();
+		g.drawRect(originX + (x * unit) - (unit / 8), originY - (y * unit) - (unit / 8), unit / 4, unit / 4);
 	}
 }
