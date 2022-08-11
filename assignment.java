@@ -2,31 +2,31 @@ import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class test extends Applet implements ActionListener {
+public class assignment extends Applet implements ActionListener {
 	private Integer unit = 40;
 	private Button ZoomIn = new Button("Zoom In");
 	private Button ZoomOut = new Button("Zoom Out");
 
 	private Color BackgroundColor = new Color(255, 255, 255);
 	private Color GridColor = new Color(100, 100, 100);
+	private Color PointColor = new Color(255, 0, 0);
 
-	
 	public void init() {
-		this.setSize(600, 600);
+		this.setSize(900, 900);
 		this.setBackground(BackgroundColor);
-		
+
 		add(ZoomIn);
 		add(ZoomOut);
-		
+
 		ZoomIn.addActionListener(this);
 		ZoomOut.addActionListener(this);
 	}
-	
+
 	public void paint(Graphics g) {
-		
+
 		int height = getHeight();
 		int width = getWidth();
-		
+
 		// Set origin
 		int originX = (getX() + width) / 2;
 		int originY = (getY() + height) / 2;
@@ -64,10 +64,11 @@ public class test extends Applet implements ActionListener {
 			g.drawString("-" + String.valueOf(coordinate), originX - (unit * count), originY);
 		}
 
-		// Draw square
-		g.drawRect(originX + (2 * unit) - (unit / 8), originY - (1 * unit) - (unit / 8), unit / 4, unit / 4);
-
-		plotpoint(5, 1, GridColor);
+		// Plot points
+		plotpoint(2, 1, PointColor);
+		plotpoint(5, 1, PointColor);
+		plotpoint(5, 4, PointColor);
+		plotpoint(2, 4, PointColor);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -80,10 +81,14 @@ public class test extends Applet implements ActionListener {
 		paint(g);
 	}
 
-	public void plotpoint(int x, int y, Color C){
+	public void plotpoint(int x, int y, Color C) {
 		int originX = (getX() + getWidth()) / 2;
 		int originY = (getY() + getHeight()) / 2;
 		Graphics g = getGraphics();
-		g.drawRect(originX + (x * unit) - (unit / 8), originY - (y * unit) - (unit / 8), unit / 4, unit / 4);
+		g.setColor(C);
+
+		Integer PointWidth = unit / 4;
+		g.drawRect(originX + (x * unit) - PointWidth / 2, originY - (y * unit) - PointWidth / 2, PointWidth,
+				PointWidth);
 	}
 }
