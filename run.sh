@@ -1,2 +1,2 @@
 javac *.java
-appletviewer assignment.html
+appletviewer special.html
