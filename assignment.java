@@ -64,7 +64,7 @@ public class assignment extends Applet implements ActionListener {
 			g.drawString(String.valueOf(coordinate), originX, originY - (unit * count));
 			g.drawString("-" + String.valueOf(coordinate), originX - (unit * count), originY);
 		}
-		dda(3,4,3,9);
+		dda(3,4,6,9);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -78,8 +78,11 @@ public class assignment extends Applet implements ActionListener {
 	}
 
 	public void dda(Integer x1, Integer y1, Integer x2, Integer y2) {
+		int originX = (getX() + getWidth()) / 2;
+		int originY = (getY() + getHeight()) / 2;
 		Graphics g = getGraphics();
-		g.setColor(PointColor);
+		Color newcolor = new Color(255,0,0);
+		g.setColor(newcolor);
 		Integer dx,dy,x,y,step;
 		dx = x2-x1;
 		dy = y2-y1;
@@ -91,9 +94,15 @@ public class assignment extends Applet implements ActionListener {
 		dy = dy/step;
 		x = x1;
 		y = y1;
-		System.out.println(dy);
+		int PointWidth = unit / 4;
+
+		// System.out.println(dy * unit);
+		// System.out.println(originX + (y * unit));
+		// System.out.println(originX + ((y + dy) * unit));
+
 		for(int i=0; i<=step; ++i){
-			g.drawOval(x, y, 3, 3);
+			g.drawLine(originX + (x * unit), originY - (y * unit), originX + ((x + dx) * unit), originY - ((y + dy) * unit));
+			
 			x += dx;
 			y += dy;
 		}
