@@ -6,8 +6,6 @@ import userdefined.Second;
 import userdefined.nested.Third;
 
 public class First {
-    public int variable;
-
     public void print() {
         Second second = new Second();
         Third third = new Third();
