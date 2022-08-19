@@ -1,6 +1,7 @@
 import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.Math;
 
 public class assignment extends Applet implements ActionListener {
 	private Integer unit = 40;
@@ -63,12 +64,7 @@ public class assignment extends Applet implements ActionListener {
 			g.drawString(String.valueOf(coordinate), originX, originY - (unit * count));
 			g.drawString("-" + String.valueOf(coordinate), originX - (unit * count), originY);
 		}
-
-		// Plot points
-		plotpoint(2, 1, PointColor);
-		plotpoint(5, 1, PointColor);
-		plotpoint(5, 4, PointColor);
-		plotpoint(2, 4, PointColor);
+		dda(3,4,3,9);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -81,14 +77,25 @@ public class assignment extends Applet implements ActionListener {
 		paint(g);
 	}
 
-	public void plotpoint(int x, int y, Color C) {
-		int originX = (getX() + getWidth()) / 2;
-		int originY = (getY() + getHeight()) / 2;
+	public void dda(Integer x1, Integer y1, Integer x2, Integer y2) {
 		Graphics g = getGraphics();
-		g.setColor(C);
-
-		Integer PointWidth = unit / 4;
-		g.drawRect(originX + (x * unit) - PointWidth / 2, originY - (y * unit) - PointWidth / 2, PointWidth,
-				PointWidth);
+		g.setColor(PointColor);
+		Integer dx,dy,x,y,step;
+		dx = x2-x1;
+		dy = y2-y1;
+		if(Math.abs(dx) > Math.abs(dy))
+			step = Math.abs(dx);
+		else
+			step = Math.abs(dy);
+		dx = dx/step;
+		dy = dy/step;
+		x = x1;
+		y = y1;
+		System.out.println(dy);
+		for(int i=0; i<=step; ++i){
+			g.drawOval(x, y, 3, 3);
+			x += dx;
+			y += dy;
+		}
 	}
 }
