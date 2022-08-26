@@ -64,47 +64,97 @@ public class assignment extends Applet implements ActionListener {
 			g.drawString(String.valueOf(coordinate), originX, originY - (unit * count));
 			g.drawString("-" + String.valueOf(coordinate), originX - (unit * count), originY);
 		}
-		dda(3,4,6,9);
+		bresenham(3, 4, 4, 8);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		Graphics g = getGraphics();
 		g.clearRect(0, 0, getWidth(), getHeight());
 		if (e.getSource() == ZoomIn)
-			unit += 20;
+			unit += 10;
 		else
-			unit -= 20;
+			unit -= 10;
 		paint(g);
 	}
 
-	public void dda(Integer x1, Integer y1, Integer x2, Integer y2) {
+	public void plotpoint(int x, int y, Color C) {
 		int originX = (getX() + getWidth()) / 2;
 		int originY = (getY() + getHeight()) / 2;
 		Graphics g = getGraphics();
-		Color newcolor = new Color(255,0,0);
-		g.setColor(newcolor);
-		Integer dx,dy,x,y,step;
-		dx = x2-x1;
-		dy = y2-y1;
-		if(Math.abs(dx) > Math.abs(dy))
-			step = Math.abs(dx);
-		else
-			step = Math.abs(dy);
-		dx = dx/step;
-		dy = dy/step;
+		g.setColor(C);
+
+		int PointWidth = unit / 4;
+		g.fillOval(originX + (x * unit) - PointWidth / 2, originY - (y * unit) - PointWidth / 2, PointWidth,
+				PointWidth);
+	}
+
+	public void dda(Integer x1, Integer y1, Integer x2, Integer y2) {
+		double dx, dy, steps;
+		double x, y;
+
+		dx = Math.abs(x2 - x1);
+		dy = Math.abs(y2 - y1);
+		steps = Math.max(dx, dy);
+
+		double xinc = dx / steps;
+		double yinc = dy / steps;
+
 		x = x1;
 		y = y1;
-		int PointWidth = unit / 4;
 
-		// System.out.println(dy * unit);
-		// System.out.println(originX + (y * unit));
-		// System.out.println(originX + ((y + dy) * unit));
+		for (int i = 0; i <= steps; ++i) {
+			plotpoint((int) Math.round(x), (int) Math.round(y), PointColor);
 
-		for(int i=0; i<=step; ++i){
-			g.drawLine(originX + (x * unit), originY - (y * unit), originX + ((x + dx) * unit), originY - ((y + dy) * unit));
-			
-			x += dx;
-			y += dy;
+			x += xinc;
+			y += yinc;
 		}
+	}
+
+	public void bresenham(Integer x1, Integer y1, Integer x2, Integer y2) {
+		int x, y, dx, dy;
+
+		dx = x2 - x1;
+		dy = y2 - y1;
+
+		x = x1;
+		y = y1;
+
+		double m;
+		if (x2 == x1)
+			m = 1;
+		else
+			m = Math.abs((y2 - y1) / (x2 - x1));
+
+		if (m < 1) {
+			int p = 2 * dy - dx;
+			while (x <= x2) {
+				if (p >= 0) {
+					plotpoint(x, y, PointColor);
+					y += 1;
+					p = p + 2 * dy - 2 * dx;
+				} else {
+					plotpoint(x, y, PointColor);
+					p = p + 2 * dy;
+				}
+				x += 1;
+			}
+		} else {
+			int p = 2 * dx - dy;
+			while (y <= y2) {
+				if (p >= 0) {
+					plotpoint(x, y, PointColor);
+					x += 1;
+					p = p + 2 * dx - 2 * dy;
+				} else {
+					plotpoint(x, y, PointColor);
+					p = p + 2 * dx;
+				}
+				y += 1;
+			}
+		}
+	}
+
+	public void midpoint(Integer x1, Integer y1, Integer x2, Integer y2) {
+		
 	}
 }

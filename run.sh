@@ -1,2 +1,2 @@
-javac *.java
+javac assignment.java
 appletviewer assignment.html
