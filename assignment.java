@@ -8,6 +8,10 @@ public class assignment extends Applet implements ActionListener {
 	private Button ZoomIn = new Button("Zoom In");
 	private Button ZoomOut = new Button("Zoom Out");
 
+	private Button DDA = new Button("DDA");
+	private Button Bresenham = new Button("Bresenham");
+	private Button MidPoint = new Button("Mid-Point");
+
 	private Color BackgroundColor = new Color(255, 255, 255);
 	private Color GridColor = new Color(100, 100, 100);
 	private Color PointColor = new Color(255, 0, 0);
@@ -15,12 +19,26 @@ public class assignment extends Applet implements ActionListener {
 	public void init() {
 		this.setSize(900, 900);
 		this.setBackground(BackgroundColor);
+		setLayout(null);
+
+		ZoomIn.setBounds(400, 0, 80, 40);
+		ZoomOut.setBounds(490, 0, 80, 40);
+
+		DDA.setBounds(800, 0, 100, 50);
+		Bresenham.setBounds(800, 50, 100, 50);
+		MidPoint.setBounds(800, 100, 100, 50);
 
 		add(ZoomIn);
 		add(ZoomOut);
+		add(DDA);
+		add(Bresenham);
+		add(MidPoint);
 
 		ZoomIn.addActionListener(this);
 		ZoomOut.addActionListener(this);
+		DDA.addActionListener(this);
+		Bresenham.addActionListener(this);
+		MidPoint.addActionListener(this);
 	}
 
 	public void paint(Graphics g) {
@@ -64,7 +82,6 @@ public class assignment extends Applet implements ActionListener {
 			g.drawString(String.valueOf(coordinate), originX, originY - (unit * count));
 			g.drawString("-" + String.valueOf(coordinate), originX - (unit * count), originY);
 		}
-		midpoint(3, 4, 5, 8);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -72,8 +89,19 @@ public class assignment extends Applet implements ActionListener {
 		g.clearRect(0, 0, getWidth(), getHeight());
 		if (e.getSource() == ZoomIn)
 			unit += 10;
-		else
+
+		else if (e.getSource() == ZoomOut)
 			unit -= 10;
+
+		else if (e.getSource() == DDA)
+			dda(3, 4, 5, 8);
+
+		else if (e.getSource() == Bresenham)
+			bresenham(3, 4, 5, 8);
+
+		else if (e.getSource() == MidPoint)
+			midpoint(3, 4, 5, 8);
+
 		paint(g);
 	}
 
@@ -179,7 +207,7 @@ public class assignment extends Applet implements ActionListener {
 				plotpoint(x, y, PointColor);
 			}
 		}
-		
+
 		// Slope greater than 1
 		else if (dx < dy) {
 			d = dx - (dy / 2);
