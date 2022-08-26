@@ -64,7 +64,7 @@ public class assignment extends Applet implements ActionListener {
 			g.drawString(String.valueOf(coordinate), originX, originY - (unit * count));
 			g.drawString("-" + String.valueOf(coordinate), originX - (unit * count), originY);
 		}
-		bresenham(3, 4, 4, 8);
+		midpoint(3, 4, 5, 8);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -155,6 +155,46 @@ public class assignment extends Applet implements ActionListener {
 	}
 
 	public void midpoint(Integer x1, Integer y1, Integer x2, Integer y2) {
+		int dx, dy, d, x, y;
+
+		dx = x2 - x1;
+		dy = y2 - y1;
+
+		x = x1;
+		y = y1;
+
+		// Slope less than or equal to 1
+		if (dy <= dx) {
+			d = dy - (dx / 2);
+
+			plotpoint(x, y, PointColor);
+			while (x < x2) {
+				x++;
+				if (d < 0)
+					d += dy;
+				else {
+					d += (dy - dx);
+					y++;
+				}
+				plotpoint(x, y, PointColor);
+			}
+		}
 		
+		// Slope greater than 1
+		else if (dx < dy) {
+			d = dx - (dy / 2);
+
+			plotpoint(x, y, PointColor);
+			while (y < y2) {
+				y++;
+				if (d < 0)
+					d += dx;
+				else {
+					d += (dx - dy);
+					x++;
+				}
+				plotpoint(x, y, PointColor);
+			}
+		}
 	}
 }
