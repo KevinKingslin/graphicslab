@@ -68,6 +68,14 @@ public class Q3 extends Applet implements ActionListener {
 		Color PointColor = new Color(255, 0, 0);
 
 		plotpoint(3, 1, PointColor);
+		plotpoint(3, 2, PointColor);
+		plotpoint(3, 3, PointColor);
+		plotpoint(3, 4, PointColor);
+		plotpoint(4, 5, PointColor);
+		plotpoint(4, 1, PointColor);
+		plotpoint(5, 2, PointColor);
+		plotpoint(5, 3, PointColor);
+		plotpoint(5, 4, PointColor);
 		plotpoint(3, 5, PointColor);
 		plotpoint(5, 1, PointColor);
 		plotpoint(5, 5, PointColor);
