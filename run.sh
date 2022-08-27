@@ -1,3 +1,3 @@
 javac *.java
 javac packages/*.java
-appletviewer assignment.html
+appletviewer $1.html

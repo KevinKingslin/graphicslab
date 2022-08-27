@@ -1,7 +1,6 @@
 import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.Math;
 
 import packages.*;
 
@@ -90,6 +89,9 @@ public class assignment extends Applet implements ActionListener {
 		Bresenham bresenham = new Bresenham();
 		Midpoint midpoint = new Midpoint();
 
+		Point Point1 = new Point(3,4);
+		Point Point2 = new Point(5,8);
+
 		Graphics g = getGraphics();
 		g.clearRect(0, 0, getWidth(), getHeight());
 		if (e.getSource() == ZoomIn)
@@ -101,13 +103,13 @@ public class assignment extends Applet implements ActionListener {
 		paint(g);
 
 		if (e.getSource() == DDA)
-			dda.PlotLine(3, 4, 5, 8, g, PointColor);
+			dda.PlotLine(Point1, Point2, unit, g, PointColor);
 
 		else if (e.getSource() == Bresenham)
-			bresenham.PlotLine(3, 4, 5, 8, g, PointColor);
+			bresenham.PlotLine(Point1, Point2, g, PointColor);
 
 		else if (e.getSource() == MidPoint)
-			midpoint.PlotLine(3, 4, 5, 8, g, PointColor);
+			midpoint.PlotLine(Point1, Point2, g, PointColor);
 
 	}
 

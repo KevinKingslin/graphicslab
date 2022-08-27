@@ -22,21 +22,21 @@ public class Midpoint extends Applet {
 				PointWidth);
 	}
 
-	public void PlotLine(Integer x1, Integer y1, Integer x2, Integer y2, Graphics g, Color PointColor) {
+	public void PlotLine(Point P1, Point P2, Graphics g, Color PointColor) {
 		int dx, dy, d, x, y;
 
-		dx = x2 - x1;
-		dy = y2 - y1;
+		dx = P2.x - P1.x;
+		dy = P2.y - P1.y;
 
-		x = x1;
-		y = y1;
+		x = P1.x;
+		y = P1.y;
 
 		// Slope less than or equal to 1
 		if (dy <= dx) {
 			d = dy - (dx / 2);
 
 			PlotPoint(x, y, g, PointColor);
-			while (x < x2) {
+			while (x < P2.x) {
 				x++;
 				if (d < 0)
 					d += dy;
@@ -53,7 +53,7 @@ public class Midpoint extends Applet {
 			d = dx - (dy / 2);
 
 			PlotPoint(x, y, g, PointColor);
-			while (y < y2) {
+			while (y < P2.y) {
 				y++;
 				if (d < 0)
 					d += dx;

@@ -22,24 +22,24 @@ public class Bresenham extends Applet {
 				PointWidth);
 	}
 
-    public void PlotLine(Integer x1, Integer y1, Integer x2, Integer y2, Graphics g, Color PointColor){
+    public void PlotLine(Point P1, Point P2, Graphics g, Color PointColor){
         int x, y, dx, dy;
 
-		dx = x2 - x1;
-		dy = y2 - y1;
+		dx = P2.x - P1.x;
+		dy = P2.y - P1.y;
 
-		x = x1;
-		y = y1;
+		x = P1.x;
+		y = P1.y;
 
 		double m;
-		if (x2 == x1)
+		if (P2.x == P1.x)
 			m = 1;
 		else
-			m = Math.abs((y2 - y1) / (x2 - x1));
+			m = Math.abs((P2.y - P1.y) / (P2.x - P1.x));
 
 		if (m < 1) {
 			int p = 2 * dy - dx;
-			while (x <= x2) {
+			while (x <= P2.x) {
 				if (p >= 0) {
 					PlotPoint(x, y, g, PointColor);
 					y += 1;
@@ -52,7 +52,7 @@ public class Bresenham extends Applet {
 			}
 		} else {
 			int p = 2 * dx - dy;
-			while (y <= y2) {
+			while (y <= P2.y) {
 				if (p >= 0) {
 					PlotPoint(x, y, g, PointColor);
 					x += 1;
