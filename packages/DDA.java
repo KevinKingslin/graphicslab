@@ -5,12 +5,13 @@ import java.awt.*;
 import java.lang.Math;
 
 public class DDA extends Applet {
+	private Integer unit = 40;
 
 	public DDA() {
 		this.setSize(900, 900);
 	}
 
-	public void PlotPoint(int x, int y, Integer unit, Graphics g, Color C) {
+	public void PlotPoint(int x, int y, Graphics g, Color C) {
 		int originX = (getX() + getWidth()) / 2;
 		int originY = (getY() + getHeight()) / 2;
 
@@ -21,24 +22,24 @@ public class DDA extends Applet {
 				PointWidth);
 	}
 
-	public void PlotLine(Point P1, Point P2, Integer unit, Graphics g, Color PointColor) {
+	public void PlotLine(Integer x1, Integer y1, Integer x2, Integer y2, Graphics g, Color PointColor) {
 
 		double dx, dy, steps;
 		double x, y;
 
-		dx = Math.abs(P2.x - P1.x);
-		dy = Math.abs(P2.y - P1.y);
+		dx = Math.abs(x2 - x1);
+		dy = Math.abs(y2 - y1);
 		steps = Math.max(dx, dy);
 
 		double xinc = dx / steps;
 		double yinc = dy / steps;
 
-		x = P1.x;
-		y = P1.y;
+		x = x1;
+		y = y1;
 
 		g.setColor(PointColor);
 		for (int i = 0; i <= steps; ++i) {
-			PlotPoint((int) Math.round(x), (int) Math.round(y), unit, g, PointColor);
+			PlotPoint((int) Math.round(x), (int) Math.round(y), g, PointColor);
 
 			x += xinc;
 			y += yinc;
