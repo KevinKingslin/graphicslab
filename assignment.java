@@ -101,13 +101,13 @@ public class assignment extends Applet implements ActionListener {
 		paint(g);
 
 		if (e.getSource() == DDA)
-			dda.PlotLine(3, 4, 5, 8, g, PointColor);
+			dda.PlotLine(5, 1, 8, 9, g, PointColor);
 
 		else if (e.getSource() == Bresenham)
-			bresenham.PlotLine(3, 4, 5, 8, g, PointColor);
+			bresenham.PlotLine(2, 1, 5, 5, g, PointColor);
 
 		else if (e.getSource() == MidPoint)
-			midpoint.PlotLine(3, 4, 5, 8, g, PointColor);
+			midpoint.PlotLine(5, 1, 8, 9, g, PointColor);
 
 	}
 
