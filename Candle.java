@@ -8,7 +8,7 @@ import packages.Fire;
 public class Candle extends Applet implements ActionListener {
     private Color BackgroundColor = new Color(255, 255, 255);
     Graphics g;
-    int delay = 1000;
+    int delay = 1200;
     private Button LightCandle = new Button("Light Candle");
     private Button BlowCandle = new Button("Blow Candle");
 
@@ -41,23 +41,30 @@ public class Candle extends Applet implements ActionListener {
 
     public void paint(Graphics g) {
         g.setColor(Color.black);
-        g.fillRect(0,0, getWidth(), getHeight());
+        g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.blue);
         g.fillRect(250, 600, 400, 300);
     }
 
+    public void light_candle() {
+        g.clearRect(250, 200, 400, 400);
+        paint(g);
+        timer.stop();
+    }
+
+    public void put_out_candle() {
+        g.setColor(BackgroundColor);
+        g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.blue);
+        g.fillRect(250, 600, 400, 300);
+        timer.start();
+    }
+
     public void actionPerformed(ActionEvent e) {
         g.setColor(Color.blue);
-        if (e.getSource() == BlowCandle) {
-            g.clearRect(250, 200, 400, 400);
-            paint(g);
-            timer.stop();
-        } else if (e.getSource() == LightCandle) {
-            g.setColor(BackgroundColor);
-            g.fillRect(0,0, getWidth(), getHeight());
-            g.setColor(Color.blue);
-            g.fillRect(250, 600, 400, 300);
-            timer.start();
-        }
+        if (e.getSource() == BlowCandle)
+            light_candle();
+        else if (e.getSource() == LightCandle)
+            put_out_candle();
     }
 }
