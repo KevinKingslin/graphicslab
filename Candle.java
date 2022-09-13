@@ -6,6 +6,7 @@ import javax.swing.Timer;
 import packages.Fire;
 
 public class Candle extends Applet implements ActionListener {
+    //test
     private Color BackgroundColor = new Color(255, 255, 255);
     Graphics g;
     int delay = 1200;
