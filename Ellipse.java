@@ -7,7 +7,7 @@ public class Ellipse extends Applet implements MouseWheelListener {
     ArrayList<Circle> Circle = new ArrayList<Circle>();
     int originX, originY;
     int height, width;
-    int unit = 3;
+    int unit = 10;
 
     public void init() {
         setBackground(Color.blue);
@@ -21,7 +21,7 @@ public class Ellipse extends Applet implements MouseWheelListener {
         originX = (getX() + width) / 2;
         originY = (getY() + height) / 2;
         drawGrid(g);
-        midptellipse(g, 10, 15, 50, 50);
+        midptellipse(g, 10, 15, 0, 0);
     }
 
     public void plotPoint(Graphics g, int x, int y, Color C) {
@@ -38,8 +38,7 @@ public class Ellipse extends Applet implements MouseWheelListener {
         x = 0;
         y = ry;
 
-        d1 = (ry * ry) - (rx * rx * ry) +
-                (rx * rx);
+        d1 = (ry * ry) - (rx * rx * ry) + (rx * rx);
         dx = 2 * ry * ry * x;
         dy = 2 * rx * rx * y;
 
@@ -47,10 +46,10 @@ public class Ellipse extends Applet implements MouseWheelListener {
         while (dx < dy) {
 
             // Print points based on 4-way symmetry
-            plotPoint(g, x + xc, y + yc, Color.red);
-            plotPoint(g, -x + xc, y + yc, Color.red);
-            plotPoint(g, x + xc, -y + yc, Color.red);
-            plotPoint(g, -x + xc, -y + yc, Color.red);
+            plotPoint(g, x + xc, y + yc, Color.black);
+            plotPoint(g, -x + xc, y + yc, Color.black);
+            plotPoint(g, x + xc, -y + yc, Color.black);
+            plotPoint(g, -x + xc, -y + yc, Color.black);
 
             // Checking and updating value of
             // decision parameter based on algorithm
@@ -69,17 +68,17 @@ public class Ellipse extends Applet implements MouseWheelListener {
 
         // Decision parameter of region 2
         d2 = ((ry * ry) * ((x) * (x)))
-        + ((rx * rx) * ((y - 1) * (y - 1)))
-        - (rx * rx * ry * ry);
+                + ((rx * rx) * ((y - 1) * (y - 1)))
+                - (rx * rx * ry * ry);
 
         // Plotting points of region 2
         while (y >= 0) {
 
             // printing points based on 4-way symmetry
-            plotPoint(g, x+xc, y+yc, Color.red);
-            plotPoint(g, -x+xc, y+yc, Color.red);
-            plotPoint(g, x+xc, -y+yc, Color.red);
-            plotPoint(g, -x+xc, -y+yc, Color.red);
+            plotPoint(g, x + xc, y + yc, Color.black);
+            plotPoint(g, -x + xc, y + yc, Color.black);
+            plotPoint(g, x + xc, -y + yc, Color.black);
+            plotPoint(g, -x + xc, -y + yc, Color.black);
 
             // Checking and updating parameter
             // value based on algorithm
@@ -123,7 +122,7 @@ public class Ellipse extends Applet implements MouseWheelListener {
     public void mouseWheelMoved(MouseWheelEvent e) {
         int z = e.getWheelRotation();
         if (unit + z >= 1 && unit + z <= 300) {
-            unit += z;
+            unit -= z;
             repaint();
         }
     }
