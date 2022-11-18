@@ -1,3 +1,3 @@
 javac *.java
 javac packages/*.java
-java shapes
+appletviewer Sutherland.html
