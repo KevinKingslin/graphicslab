@@ -1,3 +1,3 @@
 javac *.java
 javac packages/*.java
-appletviewer Sutherland.html
+appletviewer BSpline.html
